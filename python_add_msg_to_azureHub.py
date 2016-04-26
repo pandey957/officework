@@ -24,7 +24,7 @@ Protocol = IoTHubTransportProvider.HTTP
 
 # String containing Hostname, Device Id & Device Key in the format:
 # "HostName=<host_name>;DeviceId=<device_id>;SharedAccessKey=<device_key>"
-connectionString = "HostName=AnnikIoT.azure-devices.net;DeviceId=Annk_Dev_1;SharedAccessKey=pkYj1c2F+G021EkNdYoH31jPiWNiszFzxhg3zR+FmdM="
+connectionString = "Enter you details from azure here"
 
 msgTxt = "{\"device\": \"myHTTPDevice\",\"data\": %.2f}"
 
