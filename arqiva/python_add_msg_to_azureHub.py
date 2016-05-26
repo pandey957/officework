@@ -25,10 +25,9 @@ send_callbacks = 0
 
 # transport protocol
 Protocol = IoTHubTransportProvider.HTTP
-
 # String containing Hostname, Device Id & Device Key in the format:
 # "HostName=<host_name>;DeviceId=<device_id>;SharedAccessKey=<device_key>"
-connectionString = ""
+connectionString = "HostName=AnnikIoT.azure-devices.net;DeviceId=Annk_Dev_1;SharedAccessKey=pkYj1c2F+G021EkNdYoH31jPiWNiszFzxhg3zR+FmdM="
 
 msgTxt = {}
 
@@ -72,8 +71,6 @@ def send_confirmation_callback(message, result, userContext):
     print ("    Properties: %s" % keyValuePair)
     send_callbacks += 1
     print ("    Total calls confirmed: %d" % send_callbacks)
-
-
 def iothub_client_init():
     # prepare iothub client
     iotHubClient = IoTHubClient(connectionString, Protocol)
