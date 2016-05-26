@@ -1,0 +1,73 @@
+SELECT
+    DeviceProperties.DeviceID,
+    DeviceProperties.Manufacture,
+    DeviceProperties.ModelNumber,
+    DATEADD(second, cast(DeviceRawData.transmissionTime as bigint), '1970-01-01T00:00:00Z') as Transmissiontime,
+    DeviceRawData.rawData,
+    DeviceRawData.messageSnr,
+    DeviceRawData.messageRssi,
+    MessageData.messageType,
+    MessageData.SWVersion,
+    cast(MessageData.pressure as bigint) as pressure,
+    cast(MessageData.temperature as bigint) as Temp,
+    cast(MessageData.humidity as bigint) as humidity,
+    MessageData.i_o_one_state,
+    MessageData.status,
+    DeviceLocation.location,
+    DeviceLocation.postcode,
+    DeviceLocation.latitude,
+    DeviceLocation.longitude,
+    System.Timestamp as times,
+    cast(DeviceRawData.transmissionTime as bigint) as finishtransmissionTime
+    into IoTOutput
+FROM IoTInputTab1
+;
+SELECT
+    DeviceProperties.DeviceID,
+    DeviceProperties.Manufacture,
+    DeviceProperties.ModelNumber,
+    DATEADD(second, cast(DeviceRawData.transmissionTime as bigint), '1970-01-01T00:00:00Z') as Transmissiontime,
+    DeviceRawData.rawData,
+    DeviceRawData.messageSnr,
+    DeviceRawData.messageRssi,
+    MessageData.messageType,
+    MessageData.SWVersion,
+    cast(MessageData.pressure as bigint) as pressure,
+    cast(MessageData.temperature as bigint) as Temp,
+    cast(MessageData.humidity as bigint) as humidity,
+    MessageData.i_o_one_state,
+    MessageData.status,
+    DeviceLocation.location,
+    DeviceLocation.postcode,
+    DeviceLocation.latitude,
+    DeviceLocation.longitude,
+    System.Timestamp as times,
+    cast(DeviceRawData.transmissionTime as bigint) as finishtransmissionTime
+    into annikoutput1
+FROM IoTInputTab1
+;
+
+SELECT
+    DeviceProperties.DeviceID,
+    max(cast(MessageData.temperature as bigint)) as temp,
+    max(cast(MessageData.pressure as bigint)) as pressure,
+    max(cast(MessageData.humidity as bigint)) as humidity
+INTO stream2output
+FROM IoTInputTab1
+  group by DeviceProperties.DeviceID,
+  TumblingWindow(Duration(minute, 1));
+
+
+
+  WITH temptable AS (
+  Select
+      MessageData.temperature as temperature,
+      DeviceProperties.DeviceID as deviceid
+  FROM
+      IoTInputTab1
+      )
+  Select deviceid, last(temperature) over (partition by deviceid LIMIT DURATION(hour, 1)) as last_temperature
+  INTO groupedvalues
+  from temptable;
+
+count deviceid who has last status 10
