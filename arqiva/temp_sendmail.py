@@ -21,10 +21,10 @@ while True:
         print 'continuing loop'
         continue
     print 'trying to login'
-    mail = smtplib.SMTP('smtp.office365.com',587)
-    mail.ehlo()
-    mail.starttls()
-    mail.login(sender,token.decode('base64'))
+    #mail = smtplib.SMTP('smtp.office365.com',587)
+    #mail.ehlo()
+    #mail.starttls()
+    #mail.login(sender,token.decode('base64'))
     print 'successfully logged in'
     print 'length of records found:', str(len(tasks))
     for record in tasks:

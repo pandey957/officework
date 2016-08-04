@@ -1,0 +1,17 @@
+from collections import deque
+class movingAverage():
+  def __init__(self, t_window):
+    self.t_window = t_window
+    self.stream = deque()
+  def addStream(self,items):
+    for item in items:
+      self.stream.append(item)
+      if len(self.stream) > self.t_window: self.stream.popleft()
+  def calAvg(self,next=1):
+    first_avg = sum(self.stream)/float(self.t_window)
+    if next==1: return first_avg
+    else:
+      return ( sum(self.stream) + first_avg - self.stream[0]) / float(self.t_window)
+
+a = movingAverage(4)
+a.addStream([1,2,3,4,5])

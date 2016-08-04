@@ -1,9 +1,7 @@
 from azure.storage.table import TableService, Entity
 table_service = TableService(account_name='rsastoragewestus', account_key='PNaraccyQ7oFvN9oaifPk4fjG8/vN8U+v577zFG+5npVHGXWgbOlGamgBlNjbsZU3rs7Kd7+r/Hnbqbk2Rowqw==')
 tasks = table_service.query_entities('StreamOutputTable1')
-
-
-
+for line in tasks: table_service.delete_entity('StreamOutputTable1',line.PartitionKey, line.RowKey)
 SELECT
     DeviceProperties.DeviceID,
     DeviceProperties.Manufacture,
@@ -19,7 +17,7 @@ SELECT
     cast(MessageData.humidity as bigint) as humidity,
     MessageData.i_o_one_state,
     MessageData.status,
-    DeviceLocation.location,
+    De.location,
     DeviceLocation.postcode,
     DeviceLocation.latitude,
     DeviceLocation.longitude,
@@ -31,7 +29,7 @@ FROM IoTInputTab1
 
 
 #Empty table_storage
-for line in tasks: table_service.delete_entity('StreamOutputTable1',line.PartitionKey, line.RowKey)
+
 
 table_service.delete_table('StreamOutputTable1')
 
@@ -40,6 +38,62 @@ count = 0
 for line in tasks:
   if line.temp>30:
     count += 1
-    print count  
+    print count
 
 table_service.query_entities('StreamOutputTable1', filter="finishtransmissiontime gt 1463221800")
+
+
+
+
+
+
+
+http://wp.superpages.com/results.php?ReportType=34&qa=20+RIVER+CT&qc=Jersey+City&qhn=20&qi=0&qk=100&qs=NJ&qst=RIVER+CT
+
+
+
+src="http://wp.superpages.com/templates/001-default/images/male.png"
+http://wp.superpages.com/templates/001-default/images/female.png
+\
+
+
+
+from envelopes import Envelope
+import smtplib
+envelope = Envelope( from_addr = 'satyendra.pandey@annik.com', to_addr = 'hasanzaidi4u@gmail.com',subject = 'hello',text_body = 'asdflkjads flkasjdf lasdf')
+envelope.send('172.16.8.28')
+
+
+
+hasanzaidi4u@gmail.com
+
+DT
+
+
+base_url =  'http://wp.superpages.com/results.php?ReportType=34&' +
+str2 = qa=20+RIVER+CT&qc=Jersey+City&qs=NJ&qst=RIVER+CT&qi=0&qk=100
+
+url = base_url + str2
+
+
+
+
+--driver-class-path
+os.environ['SPARK_CLASSPATH'] = "/home/reco1/mysql-connector-java-5.1.38-bin.jar"
+df = sqlContext.read.format("jdbc").option("url","jdbc:mysql://172.16.8.220/test").option("driver","com.mysql.jdbc.Driver").option("dbtable","t1").option("user","test").option("password","test").load()
+df = sqlContext.read.jdbc("jdbc:mysql://172.16.8.220/test?user=test&password=test","t1")
+df.write.jdbc("jdbc:mysql://172.16.8.220/test?user=test&password=test","t2")
+
+
+
+{"DeviceProperties": {"Manufacture": "Demo", "ModelNumber": "M-1077AB", "DeviceID": "1077AB"}, "Version": "1.0", "DeviceRawData": {"messageRssi": "-110", "rawData": "961e03fc41bdcabc1f0102ff", "messageSnr": "14.689219076", "transmissionTime": "1463221800"}, "DeviceLocation": {"latitude": "57.1497", "location": "Aberdeen", "longitude": "-2.0943", "postcode": "AB10"}, "MessageData": {"status": "10", "temperature": "23.72399104", "SWVersion": "30", "i_o_one_state": "1", "messageType": "150", "humidity": "31", "pressure": "1020"}, "ObjectType": "DeviceInfo"}
+
+
+import time
+time.strftime("%Y-%m-%d",time.strptime("2013-03-23 09:13:24","%Y-%m-%d %H:%M:%S"))
+
+def parseDaily(record):
+
+\
+
+conn = pymssql.connect(server='m3cskahlnf.database.windows.net', user='test_iot', password='Annik@123', database='basic_iot_db')

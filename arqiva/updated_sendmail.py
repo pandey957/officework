@@ -30,9 +30,9 @@ def check_device_status(record):
 
 
 
-sender = 'satyendra.pandey@anniksystems.com'
+sender = 'satyendra.pandey@annik.com'
 #receiver = 'vishal.sharma@anniksystems.com'
-receiver = sender
+receiver = 'vishal.sharma@annik.com'
 msg = email.message.Message()
 msg['From'] = sender
 msg['To'] = receiver

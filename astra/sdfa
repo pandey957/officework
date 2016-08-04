@@ -1,0 +1,50 @@
+from math import exp
+import sys
+import time
+from pyspark import SparkContext
+from pyspark.mllib.classification import LogisticRegressionWithSGD
+from pyspark.mllib.regression import LabeledPoint
+from numpy import array
+
+
+# Load and parse the data
+def parsePoint(line):
+	values = [float(x) for x in line.split('\t')]
+	out_var = values[-1]
+	if out_var==2 : out_var = 0
+	return LabeledPoint(values[:-1],out_var)
+def parsePoint(line):
+  values = [float(x) for x in line.split('\t')]
+  return return LabeledPoint(values[:-1],out_var)
+
+data.map(parsePoint).first()
+#sc = SparkContext(appName="PythonLR")
+# start timing
+start = time.time()
+#start = time.clock()
+
+data = sc.textFile("file:///root/GoodbadData")
+parsedData = data.map(parsePoint)
+
+# Build the model
+model = LogisticRegressionWithSGD.train(parsedData)
+
+#load test data
+
+testdata = sc.textFile("sWSpark_test.csv")
+parsedTestData = testdata.map(parsePoint)
+
+# Evaluating the model on test data
+labelsAndPreds = parsedTestData.map(lambda p: (p.label, model.predict(p.features)))
+trainErr = labelsAndPreds.filter(lambda (v, p): v != p).count() / float(parsedData.count())
+print("Training Error = " + str(trainErr))
+end = time.time()
+print("Time is = " + str(end - start))
+
+
+
+def test(line):
+	lable = int(line.split('\t')[-1])
+	if lable == 0: return True
+	if lable == 1: return True
+	return False

@@ -30,8 +30,8 @@ def check_device_status(record):
 
 
 
-sender = 'satyendra.pandey@anniksystems.com'
-receiver = 'niraj.khalpada@anniksystems.com'
+sender = 'satyendra.pandey@annik.com'
+receiver = 'anil.jha@annik.com'
 #receiver = sender
 
 msg = email.message.Message()

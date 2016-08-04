@@ -9,6 +9,8 @@ import iothub_client
 from iothub_client import *
 import csv
 import json
+import time
+import MySQLdb
 infile = open('arqiva.csv')
 infile.readline()
 in_reader = csv.reader(infile)
@@ -31,6 +33,15 @@ connectionString = "HostName=AnnikIoT.azure-devices.net;DeviceId=Annk_Dev_1;Shar
 
 msgTxt = {}
 
+db = MySQLdb.connect("172.16.8.220","test","test","test" )
+cursor = db.cursor()
+
+def insert_into_mysql(line):
+    sql = "insert into arqiva(deviceid,postcode,location,latitude,longitude,manufacture,messagerssi,messagesnr,modelnumber,messagetype,swversion,temperature,humidity,pressure,i_o_one_state,status,rawdata,ENV_TEMP) values('%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s','%s')" % (line[0],line[1],line[2],line[3],line[4],line[5],line[6],line[7],line[8],line[9],line[10],line[11],line[12],line[13],line[15],line[16],line[17],line[19])
+    cursor.execute(sql)
+    db.commit()
+    print 'Sending message to mysql'
+
 def make_data_from_input(line):
     msgTxt['ObjectType'] = 'DeviceInfo'
     msgTxt['Version'] = '1.0'
@@ -44,6 +55,7 @@ def make_data_from_input(line):
     msgTxt['DeviceRawData'] = DeviceRawData
     msgTxt['MessageData'] = MessageData
     msgTxt['DeviceLocation'] = DeviceLocation
+    insert_into_mysql(line)
     return msgTxt
 
 def receive_message_callback(message, counter):
